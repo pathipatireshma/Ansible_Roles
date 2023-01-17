@@ -1,0 +1,30 @@
+---
+- name: update
+  apt:
+    update_cache: true
+    upgrade: "dist"
+    state: "latest"
+- name: installing prerequisite packages
+  apt:
+    name: "{{ packages }}"
+    state: "latest"
+- name: Adding Docker repository GPG key
+  get_url:
+    url: "https://download.docker.com/linux/ubuntu/gpg"
+    dest: "/home/ubuntu"
+    mode: "0755"
+- name: Adding Docker repository
+  apt_repository:
+    repo: "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable"
+    state: present
+- name: install Docker-ce
+  apt:
+    name: docker-ce
+    state: present
+
+
+
+
+
+
+
